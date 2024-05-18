@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sclad</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css' %>
+
+
+    <%= stylesheet_link_tag 'custom_styles', media: 'all' %>
+  </head>
+
+  <body>
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+      <h5 class="my-0 mr-md-auto font-weight-bold">Supersclad</h5>
+      <nav class="my-2 my-md-0 mr-md-3 ml-auto text-right">
+        <% if user_signed_in? %>
+          <span class="p-2 text-dark"><%= link_to "Создание товара", new_item_path %></span>
+          <span class="p-2 text-dark"><%= link_to "Все товары", home_path %></span>
+          <span class="p-2 text-dark"><%= link_to "Все сотрудники", allusers_path %></span>
+          <span class="p-2 text-dark"><%= link_to "Заказы", orders_path %></span>
+          <span class="p-2 text-dark"><%= link_to "Создание заказа", new_order_path %></span>
+          <span class="p-2 text-dark"><%= link_to current_user.firstname, edit_user_registration_path %></span>
+          <span class="p-2 text-dark"><%= link_to "Выйти", destroy_user_session_path, method: :delete %></span>
+        <% else %>
+          <span class="p-2 text-dark"><%= link_to "Войти", new_user_session_path %></span>
+          <span class="p-2 text-dark"><%= link_to "Зарегистрироваться", new_user_registration_path %></span>
+        <% end %>
+      </nav>
+    </div>
+    
+    <p class="flash notice"><%= flash[:notice] %></p>
+    <p class="flash alert"><%= flash[:alert] %></p>
+    
+    <div class="container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

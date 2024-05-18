@@ -1,0 +1,54 @@
+<h1>Все товары</h1>
+<%= form_tag(items_path, method: "get", class: "mb-4") do %>
+    <div class="input-group">
+      <%= text_field_tag :search, params[:search], placeholder: "Поиск", class: "form-control" %>
+      <div class="input-group-append">
+        <%= submit_tag "Искать", class: "btn btn-primary" %>
+      </div>
+      <%= link_to "Заказ", new_order_path, method: :get, id: 'create-order-btn', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+  
+  <% if @items.present? %>
+  <table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Номер</th>
+      <th>Код</th>
+      <th>Наименование</th>
+      <th>Остаток</th>
+      <th>Адрес</th>
+      <th>Базовая цена</th>
+      <th>Закупочная цена</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @i = 1 %>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= @i %></td>
+        <td><%= item.id %></td>
+        <td><%= item.title %></td>
+        <td><%= item.ostatok %></td>
+        <td><%= item.address %></td>
+        <td><%= item.sellprice %></td>
+        <td><%= item.buyprice %></td>
+        <td><%= link_to "Подробнее", item_path(item), class: 'btn btn-success' %></td>
+        <td>
+          <%= form_tag add_to_basket_path, method: :post do %>
+            <%= hidden_field_tag :item_id, item.id %>
+            <%= hidden_field_tag :user_id, current_user.id %>
+            <%= number_field_tag :quantity, 1, min: 1, max: item.ostatok %>
+            <%= submit_tag 'Добавить к заказу' %>
+          <% end %>
+        </td>
+        <% @i = @i + 1 %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+  <% else %>
+    <p>Ничего не найдено.</p>
+  <% end %>

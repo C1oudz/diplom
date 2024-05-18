@@ -1,0 +1,41 @@
+<h1>Создание заказа</h1>
+
+<%= form_with(model: @order, local: true) do |form| %>
+  
+
+  <% if @basket_items.present? %>
+  <div class="form-group">
+    <%= form.label :Клиент %>
+    <%= form.text_field :client_name, class: "form-control" %>
+  </div>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Наименование</th>
+          <th>Количество</th>
+          <th>Стоимость позиции</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @basket_items.each do |item| %>
+          <tr>
+            <td><%= item.item.title %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.item.sellprice * item.quantity) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="form-group">
+      <label>Общая стоимость заказа:</label>
+      <%= number_to_currency(@total_cost) %>
+    </div>
+    <div class="form-group">
+    <%= form.submit "Подтвердить заказ", class: "btn btn-primary" %>
+    <%= link_to 'Очистить корзину', clear_basket_path, method: :delete, data: { confirm: 'Вы уверены?' }, class: 'btn btn-danger' %>
+  </div>
+  <% else %>
+    <p>Корзина пуста.</p>
+  <% end %>
+<% end %>

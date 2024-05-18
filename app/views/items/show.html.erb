@@ -1,0 +1,15 @@
+<h3> Код товара: <%= @item.id %></h2>
+<h3> Название: <%= @item.title %></h2>
+<h3> Остаток: <%= @item.ostatok %></h2>
+<h3> Адрес: <%= @item.address %></h2>
+<h3> Базовая цена: <%= @item.sellprice %></h2>
+<h3> Закупочная цена: <%= @item.buyprice %></h2>
+<p> 
+  <% if @item.picture.attached? %>
+    <%= image_tag @item.picture %>
+  <% end %>
+</p>
+<hr>
+<%= link_to "Редактировать", edit_item_path(@item), class: 'btn btn-warning' if user_signed_in? %>
+
+<%= link_to "Удалить товар", item_path(@item), method: :delete, data: { confirm: "Хотите удалить товар?" }, class: 'btn btn-danger' if  user_signed_in? %>

@@ -1,0 +1,15 @@
+
+<table class="table table-bordered">
+  <thead><th>Номер</th><th>ФИО</th><th>Email</th><th>Роль</th>
+  <tbody>
+  <% @i=1 %>
+    <% @users.each do |user| %>
+        <tr>
+        <td><%= @i %></td>
+        <td><%= "#{user.secondname} #{user.firstname.first.capitalize}. #{user.surname.first.capitalize}." %></td>
+        <td><%= user.email %></td>
+        <td><%= user.role %></td>
+        <% @i=@i+1 %>
+    <% end %>
+  </tbody>
+</table>

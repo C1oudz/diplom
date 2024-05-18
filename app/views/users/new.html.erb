@@ -1,0 +1,33 @@
+<h2>Добавление нового сотрудника</h2>
+<%= form_for :user, url: users_path do |f| %>
+    <p>
+        Фамилия<br>
+        <%= f.text_field(:secondname, {:class => 'form-control'}) %>
+    </p>
+    <p>
+    Имя<br>
+    <%= f.text_area(:firstname, {:class => 'form-control'}) %>
+    </p>
+    <p>
+        Отчество<br>
+        <%= f.text_area(:surname, {:class => 'form-control'}) %>
+    </p>
+    <p>
+        Почта<br>
+        <%= f.text_area(:email, {:class => 'form-control'}) %>
+    </p>
+    <p>
+        Пароль<br>
+        <%= f.text_area(:password, {:class => 'form-control'}) %>
+    </p>
+    <p>
+        Подтверждение пароля<br>
+        <%= f.text_area(:password_confirmation, {:class => 'form-control'}) %>
+    </p>
+    <p>
+        Роль<br>
+        <%= f.select :role, User.roles.keys.take(2) %>
+    </p>
+    <p>
+        <%= f.submit({:class => 'btn btn-success'}) %>
+<% end %>
